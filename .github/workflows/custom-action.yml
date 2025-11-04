@@ -1,6 +1,6 @@
 name: ashish-custom-actions
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   my-job:

@@ -1,18 +1,20 @@
 name: ashish-custom-actions
 on:
   workflow_dispatch:
+  workflow_call:
+    outputs:
+      result:
+        description: "The result of the job"
+        value: ${{ jobs.my-job.outputs.output1 }}
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    outputs:
+      output1: ${{ steps.step1.outputs.result }}
     steps:
       - name: Hello world action step
-        run: echo "my-job job is running"
-
-  my-job1:
-    runs-on: ubuntu-latest
-    name: A job to say hello 1
-    steps:
-      - name: Hello world action step 1
-        run: echo "my-job1 is running"
+        id: step1
+        run: |
+          echo "my-job job is running"
+          echo "result=success" >> $GITHUB_OUTPUT

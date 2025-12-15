@@ -1,0 +1,76 @@
+name: Basic Workflow with Inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      
+      version:
+        description: 'Version number'
+        required: true
+        default: '1.0.0'
+        type: string
+      
+      enable_tests:
+        description: 'Run tests before deployment'
+        required: false
+        default: true
+        type: boolean
+      
+      custom_message:
+        description: 'Custom deployment message'
+        required: false
+        type: string
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Display inputs
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
+          echo "Enable Tests: ${{ inputs.enable_tests }}"
+          echo "Custom Message: ${{ inputs.custom_message }}"
+      
+      - name: Run tests
+        if: ${{ inputs.enable_tests == true }}
+        run: |
+          echo "Running tests..."
+          # Add your test commands here
+          # npm test
+          # mvn test
+          # pytest
+      
+      - name: Build application
+        run: |
+          echo "Building application for ${{ inputs.environment }}..."
+          # Add your build commands here
+          # npm run build
+          # mvn package
+          # docker build -t myapp:${{ inputs.version }} .
+      
+      - name: Deploy to ${{ inputs.environment }}
+        run: |
+          echo "Deploying version ${{ inputs.version }} to ${{ inputs.environment }}..."
+          if [ -n "${{ inputs.custom_message }}" ]; then
+            echo "Deployment message: ${{ inputs.custom_message }}"
+          fi
+          # Add your deployment commands here
+      
+      - name: Notify success
+        run: |
+          echo "✅ Deployment completed successfully!"
+          echo "Version ${{ inputs.version }} is now live on ${{ inputs.environment }}"

@@ -1,4 +1,4 @@
-name: QA_TESTING_TEST_ENV
+name: testing
 
 on:
   workflow_dispatch:

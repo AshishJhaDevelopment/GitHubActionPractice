@@ -1,0 +1,23 @@
+name: Workflow Run Example
+
+on:
+  workflow_run:
+    workflows:
+      - CI Pipeline        # Name of the workflow to listen to
+    types:
+      - completed
+
+jobs:
+  post-ci-job:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print workflow info
+        run: |
+          echo "Triggered by workflow: ${{ github.event.workflow_run.name }}"
+          echo "Run ID: ${{ github.event.workflow_run.id }}"
+          echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
+
+      - name: Example follow-up step
+        run: echo "CI succeeded, running post-CI tasks"

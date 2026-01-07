@@ -1,0 +1,22 @@
+name: workflow_dispatcher_UI_run
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: What is your name
+        required: true
+        type: string
+      environment:
+        description: Target environment
+        required: true
+        type: string
+
+jobs:
+  manualCommandJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log input values
+        run: |
+          echo "Name: ${{ inputs.name }}"
+          echo "Environment: ${{ inputs.environment }}"

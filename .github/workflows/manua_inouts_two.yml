@@ -1,4 +1,4 @@
-name: workflow_dispatcher_UI_run
+name: workflow_dispatcher_UI_run_two
 
 on:
   workflow_dispatch:

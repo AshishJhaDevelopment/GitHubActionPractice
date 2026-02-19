@@ -12,7 +12,7 @@ test.describe('Status / health checks', () => {
   });
 
   test('response contains expected text', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('https://example.com');
     await expect(page.locator('body')).toContainText('Example Domain');
   });
 });

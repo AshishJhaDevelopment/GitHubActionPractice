@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Executing Job 2
-        run: echo "job2 executed"
+        run: echo "job2 executed1"
   # job3:
   #   runs-on: ubuntu-latest
   #   steps:

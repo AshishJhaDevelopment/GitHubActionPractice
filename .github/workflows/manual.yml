@@ -4,7 +4,7 @@ on:
     inputs:
      name:
       description: What is your name
-      required: true
+      required: false
       type: String
 
 jobs:
